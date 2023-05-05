@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+       <title>Document</title>
+       <style>
+		body {
+			font-family: Arial, sans-serif;
+			font-size: 16px;
+			background-color: #F7F7F7;
+			margin: 0;
+			padding: 0;
+		}
+		form {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			margin-top: 30px;
+		}
+		input[type="number"],
+		input[type="text"],
+		input[type="email"],
+		input[type="password"],
+		input[type="submit"] {
+			padding: 10px;
+			border-radius: 5px;
+			border: none;
+			margin-bottom: 10px;
+			width: 300px;
+			box-sizing: border-box;
+		}
+		input[type="submit"] {
+			background-color: #008CBA;
+			color: white;
+			cursor: pointer;
+		}
+		table {
+			margin-top: 30px;
+			border-collapse: collapse;
+			width: 80%;
+			margin-left: auto;
+			margin-right: auto;
+		}
+		th, td {
+			text-align: center;
+			padding: 10px;
+			border-bottom: 1px solid #ddd;
+		}
+		th {
+			background-color: #008CBA;
+			color: white;
+		}
+		tr:nth-child(even) {
+			background-color: #f2f2f2;
+		}
+	</style>
+</head>
+<body>
+    <div align="center">
+    <form action="" method="post" align="center">
+        {% csrf_token %}
+        Enter Id <input type="number" name="id" >
+        <input type="submit" > 
+    </form>
+    <br><br><br>
+    <a href="addapi">Add Employee</a>
+    <br><br><br>
+    <h1>Employee Details</h1>
+</div> 
+<div >
+    <table align="center" border="2px">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Password</th>
+            <th>Delete</th>
+        </tr>
+        {% for i in data %}
+          <tr>
+            <form action="update" method="post">
+                {% csrf_token %}
+            <td>{{i.id}} <input type="hidden" name="id" value="{{i.id}}"></td>
+            <td><input type="text" name="name" value="{{i.name}}"></td>
+            <td> <input type="email" name="email" value="{{i.email}}"></td>
+            <td> <input type="text" name="address" value="{{i.address}}"></td>
+            <td> <input type="password" name="password" value="{{i.password}}"></td>
+            <td><input type="submit" value="update"></td>
+            </form>
+            <td><a href="delete?id={{i.id}}">Delete</a></td>
+          </tr>
+        {% endfor %}
+    </table>
+</div>
+</body>
+</html>
